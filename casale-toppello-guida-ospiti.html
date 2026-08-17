@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casale Toppello - Guida Ospiti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #7a8c6e;
+    --sage-light: #e8ede4;
+    --sage-dark: #4a5c3e;
+    --earth: #a07850;
+    --earth-light: #f0e8dc;
+    --terracotta: #c4714a;
+    --cream: #faf7f2;
+    --ink: #2a2520;
+    --ink-mid: #5a5248;
+    --ink-soft: #9a9088;
+    --white: #ffffff;
+    --border: #e0d8cc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); font-size: 15px; line-height: 1.7; }
+  .hero { background: var(--sage-dark); color: var(--white); padding: 64px 32px 56px; text-align: center; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,255,255,0.02) 40px, rgba(255,255,255,0.02) 80px); }
+  .hero-eyebrow { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+  .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 8vw, 72px); font-weight: 500; line-height: 1.05; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .hero h1 em { font-style: italic; color: rgba(255,255,255,0.75); }
+  .hero-sub { font-size: 14px; color: rgba(255,255,255,0.55); margin-top: 14px; font-weight: 300; letter-spacing: 0.04em; }
+  .hero-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.3); margin: 20px auto; }
+  .nav-bar { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); display: flex; justify-content: center; gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav-bar a { text-decoration: none; color: var(--ink-mid); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 14px 18px; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .nav-bar a:hover { color: var(--sage-dark); border-bottom-color: var(--sage); }
+  .section { max-width: 760px; margin: 0 auto; padding: 56px 24px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 32px; }
+  .section-icon { font-size: 22px; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .icon-green { background: var(--sage-light); color: var(--sage-dark); }
+  .icon-earth { background: var(--earth-light); color: var(--earth); }
+  .icon-terracotta { background: #fce8e0; color: var(--terracotta); }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; color: var(--ink); line-height: 1.1; }
+  .welcome-box { background: var(--sage-dark); color: var(--white); border-radius: 12px; padding: 32px 36px; margin-bottom: 28px; }
+  .welcome-box p { font-size: 16px; line-height: 1.8; color: rgba(255,255,255,0.85); }
+  .welcome-box strong { color: var(--white); font-weight: 500; }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 24px; }
+  .info-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+  .info-card-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; }
+  .info-card-value { font-size: 15px; font-weight: 500; color: var(--ink); }
+  .info-card-value.highlight { color: var(--sage-dark); }
+  .place-cards { display: flex; flex-direction: column; gap: 1px; }
+  .place-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; margin-bottom: 10px; }
+  .place-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+  .place-tag { display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 20px; margin-bottom: 8px; }
+  .tag-fish { background: #e0f0f5; color: #2a6070; }
+  .tag-meat { background: #fce8e0; color: #8a3820; }
+  .tag-local { background: var(--sage-light); color: var(--sage-dark); }
+  .tag-pizza { background: #fef0dc; color: #8a5010; }
+  .tag-pastry { background: #f5e8f5; color: #6a3870; }
+  .tag-bar { background: #e8f0fe; color: #2a4880; }
+  .tag-deli { background: var(--earth-light); color: var(--earth); }
+  .tag-super { background: #e8f5ea; color: #2a6038; }
+  .place-desc { font-size: 13.5px; color: var(--ink-mid); line-height: 1.65; margin-bottom: 8px; }
+  .place-meta { font-size: 12px; color: var(--ink-soft); display: flex; flex-wrap: wrap; gap: 12px; }
+  .place-meta span { display: flex; align-items: center; gap: 4px; }
+  .place-stars { font-size: 14px; font-weight: 600; color: var(--earth); background: var(--earth-light); border-radius: 6px; padding: 4px 10px; white-space: nowrap; align-self: start; }
+  .map-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; color: var(--sage-dark); text-decoration: none; margin-top: 6px; border: 1px solid var(--sage); border-radius: 6px; padding: 4px 10px; }
+  .map-link:hover { background: var(--sage-light); }
+  .rules-list { list-style: none; }
+  .rules-list li { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .rules-list li:last-child { border-bottom: none; }
+  .rule-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+  .ri-green { background: var(--sage-light); }
+  .ri-earth { background: var(--earth-light); }
+  .ri-red { background: #fce8e0; }
+  .rule-text strong { display: block; font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .rule-text span { font-size: 13px; color: var(--ink-mid); }
+  .attraction-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .attraction-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; position: relative; }
+  .attraction-number { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 400; color: var(--border); line-height: 1; margin-bottom: 8px; }
+  .attraction-name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 500; color: var(--ink); margin-bottom: 8px; line-height: 1.2; }
+  .attraction-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+  .attraction-dist { display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sage-dark); background: var(--sage-light); border-radius: 20px; padding: 3px 10px; }
+  .footer { background: var(--ink); color: rgba(255,255,255,0.6); text-align: center; padding: 40px 24px; font-size: 13px; }
+  .footer strong { color: var(--white); }
+  @media (max-width: 600px) {
+    .hero { padding: 48px 20px 40px; }
+    .section { padding: 40px 18px; }
+    .welcome-box { padding: 24px 22px; }
+    .place-card { grid-template-columns: 1fr; }
+    .nav-bar a { padding: 12px 12px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-eyebrow">Benvenuti a</p>
+  <h1>Casale<br><em>Toppello</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">Passignano sul Trasimeno &nbsp;·&nbsp; Perugia, Umbria</p>
+</div>
+
+<!-- NAV -->
+<nav class="nav-bar">
+  <a href="#casa">La Casa</a>
+  <a href="#ristoranti">Ristoranti</a>
+  <a href="#caffe">Caffe &amp; Bar</a>
+  <a href="#spesa">Spesa</a>
+  <a href="#scopri">Scopri</a>
+</nav>
+
+<!-- CASA -->
+<section class="section" id="casa">
+  <div class="section-header">
+    <div class="section-icon icon-green">🏡</div>
+    <h2 class="section-title">La vostra casa</h2>
+  </div>
+
+  <div class="welcome-box">
+    <p>Benvenuti al <strong>Casale Toppello</strong>. Siamo felicissimi di avervi qui sulla collina del Lago Trasimeno. Per voi, questa piccola guida per scoprire il meglio del paese e dei dintorni. Sentitevi a casa, e non esitate a contattarci per qualsiasi cosa.</p>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-label">Check-in</div>
+      <div class="info-card-value highlight">ore 15:00</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Check-out</div>
+      <div class="info-card-value highlight">ore 10:00</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Rete WiFi</div>
+      <div class="info-card-value">Wi Fi home</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Password WiFi</div>
+      <div class="info-card-value">casacasa</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Il nostro contatto</div>
+      <div class="info-card-value">+39 339 185 4303</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Emergenze</div>
+      <div class="info-card-value highlight">112</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Indirizzo</div>
+      <div class="info-card-value">Casale Toppello, 06065 Passignano sul Trasimeno</div>
+    </div>
+  </div>
+
+  <ul class="rules-list" style="margin-top: 32px;">
+    <li>
+      <div class="rule-icon ri-green">🔑</div>
+      <div class="rule-text">
+        <strong>Chiavi e accesso</strong>
+        <span>Le chiavi di casa e del cancello vi verranno consegnate da noi al check-in.</span>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-red">🚬</div>
+      <div class="rule-text">
+        <strong>Vietato fumare al chiuso</strong>
+        <span>Vi chiediamo di fumare solo all'esterno, lontano da porte e finestre.</span>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-green">♻️</div>
+      <div class="rule-text">
+        <strong>Raccolta differenziata</strong>
+        <span>In casa troverete i contenitori separati per carta, plastica e vetro. I rifiuti vanno portati fuori dal cancello nei giorni indicati, la mattina prima del passaggio del camion, a partire dalle 12:00. Consultate il calendario qui sotto.</span>
+        <div style="margin-top: 14px; background: var(--sage-light); border-radius: 10px; padding: 16px 18px;">
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--sage-dark); margin-bottom: 12px;">Calendario raccolta</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px;">
+            <div style="background: white; border-radius: 8px; padding: 10px 12px; text-align: center;">
+              <div style="font-size: 18px; margin-bottom: 4px;">📄</div>
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #2a6070;">Carta</div>
+              <div style="font-size: 12px; color: var(--ink-mid); margin-top: 2px;">Lunedi</div>
+            </div>
+            <div style="background: white; border-radius: 8px; padding: 10px 12px; text-align: center;">
+              <div style="font-size: 18px; margin-bottom: 4px;">🧴</div>
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #2a6070;">Plastica</div>
+              <div style="font-size: 12px; color: var(--ink-mid); margin-top: 2px;">Sabato</div>
+            </div>
+            <div style="background: white; border-radius: 8px; padding: 10px 12px; text-align: center;">
+              <div style="font-size: 18px; margin-bottom: 4px;">🍾</div>
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #2a6070;">Vetro</div>
+              <div style="font-size: 12px; color: var(--ink-mid); margin-top: 2px;">Campana in paese</div>
+            </div>
+            <div style="background: white; border-radius: 8px; padding: 10px 12px; text-align: center;">
+              <div style="font-size: 18px; margin-bottom: 4px;">🥦</div>
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #2a6070;">Organico</div>
+              <div style="font-size: 12px; color: var(--ink-mid); margin-top: 2px;">Mar e Ven</div>
+            </div>
+            <div style="background: white; border-radius: 8px; padding: 10px 12px; text-align: center;">
+              <div style="font-size: 18px; margin-bottom: 4px;">🗑️</div>
+              <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #2a6070;">Indifferenziato</div>
+              <div style="font-size: 12px; color: var(--ink-mid); margin-top: 2px;">Giovedi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-earth">🌊</div>
+      <div class="rule-text">
+        <strong>Piscina</strong>
+        <span>Puliamo la piscina ogni mattina tra le <strong>6:00 e le 8:00</strong> - il bagno e' generalmente possibile dalle <strong>8:00</strong> in poi. Vi chiediamo di fare una doccia prima di entrare in acqua.</span>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-green">💧</div>
+      <div class="rule-text">
+        <strong>Acqua del rubinetto</strong>
+        <span>L'acqua del rubinetto in tutta la casa e' perfettamente potabile. Per un'acqua ancora migliore, il rubinettino a destra del lavandino in cucina eroga acqua filtrata e purificata con osmosi inversa.</span>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-green">🚗</div>
+      <div class="rule-text">
+        <strong>Parcheggio</strong>
+        <span>Potete parcheggiare liberamente all'interno del cortile.</span>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-earth">👕</div>
+      <div class="rule-text">
+        <strong>Stendibiancheria</strong>
+        <span>Lo stendibiancheria si trova vicino all'orto.</span>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-green">🌱</div>
+      <div class="rule-text">
+        <strong>Giardino e piscina</strong>
+        <span>Se non siamo in casa, un nostro amico passa a prendersi cura del giardino e della piscina nelle prime ore della mattina.</span>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-earth">❄️</div>
+      <div class="rule-text">
+        <strong>Aria condizionata</strong>
+        <span>Vi chiediamo gentilmente di spegnere l'aria condizionata quando uscite di casa. Un piccolo gesto che fa la differenza - grazie!</span>
+      </div>
+    </li>
+    <li>
+      <div class="rule-icon ri-earth">💡</div>
+      <div class="rule-text">
+        <strong>Luci</strong>
+        <span>Ricordate di spegnere tutte le luci quando uscite.</span>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- RISTORANTI -->
+<section class="section" id="ristoranti">
+  <div class="section-header">
+    <div class="section-icon icon-earth">🍽️</div>
+    <h2 class="section-title">Ristoranti</h2>
+  </div>
+  <p style="color: var(--ink-mid); margin-bottom: 32px; font-size: 14px;">In estate e nei weekend e' consigliabile prenotare. Abbiamo organizzato i nostri preferiti per zona, per aiutarvi a pianificare le giornate.</p>
+
+  <!-- PASSIGNANO -->
+  <div style="margin-bottom: 10px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;">📍 Passignano sul Trasimeno</span>
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+    </div>
+  </div>
+
+  <div class="place-cards">
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Trattoria del Pescatore</div>
+        <span class="place-tag tag-fish">Pesce di lago</span>
+        <p class="place-desc">Ottima trattoria per il pesce fresco di lago - persico e carpa. A conduzione familiare, accoglienza calorosa. Provateli: gli antipasti misti di pesce e il dolce sfogliato alla pesca. Prenotate sempre, e' sempre pieno.</p>
+        <div class="place-meta">
+          <span>📍 Via San Bernardino, 5</span>
+          <span>📞 +39 075 829 6063</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Pranzo e cena Mar, Gio-Dom · Chiuso Lun e Mer</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Trattoria+del+Pescatore+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.7</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Osteria Cuore di Mamma</div>
+        <span class="place-tag tag-local">Cucina umbra</span>
+        <p class="place-desc">Cucina la mamma, e viene fuori a salutare. Gli gnocchetti con porcini freschi e pecorino sono leggendari. Porzioni generose di carni brasate e verdure di stagione. Un posto che scalda il cuore.</p>
+        <div class="place-meta">
+          <span>📍 Via Gabriotti, 2</span>
+          <span>📞 +39 388 782 7383</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Pranzo e cena Lun-Mer, Ven-Dom · Chiuso Gio</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Osteria+Cuore+di+Mamma+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.7</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Osteria del Maremmano</div>
+        <span class="place-tag tag-meat">Griglia e carne</span>
+        <p class="place-desc">A pochi passi dal lago, con una terrazza stupenda per le cene al tramonto. Il ribeye e la fiorentina sono eccezionali. Ottima carta dei vini e servizio veloce e cordiale. Perfetto per una serata speciale.</p>
+        <div class="place-meta">
+          <span>📍 Via Aganoor Pompili, 15</span>
+          <span>📞 +39 331 237 3207</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Pranzo ogni giorno · Cena Lun-Sab · Chiuso Mer sera</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Osteria+del+Maremmano+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.5</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Osteria da Liam</div>
+        <span class="place-tag tag-local">Pasta fatta in casa</span>
+        <p class="place-desc">In piazza con una bella atmosfera. Pasta artigianale locale, ottima tartare di Chianina al tartufo e accoglienza familiare. Molto frequentato nei weekend - arrivate presto o prenotate.</p>
+        <div class="place-meta">
+          <span>📍 Piazza Aldo Moro</span>
+          <span>📞 +39 075 911 3460</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Pranzo e cena Lun-Mar, Gio-Dom · Chiuso Mer</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Osteria+da+Liam+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.6</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Osteria del Carro</div>
+        <span class="place-tag tag-pizza">🍕 Pizza e griglia</span>
+        <p class="place-desc">La miglior pizza del paese - impasto straordinario, autentico sapore di forno a legna. Ottime anche le carni alla griglia. Ottimo rapporto qualita-prezzo e atmosfera rilassata. Solo cena (domenica anche pranzo).</p>
+        <div class="place-meta">
+          <span>📍 Via della Liberta, 6</span>
+          <span>📞 +39 075 827898</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Cena Mar-Sab · Pranzo e cena Dom · Chiuso Lun</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Osteria+del+Carro+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.5</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Non Solo Pizza</div>
+        <span class="place-tag tag-pizza">🍕 Pizza e altro</span>
+        <p class="place-desc">Direttamente sul lungolago - terrazza coperta con vista sull'acqua, pizze al forno a legna, burger con pane fatto in casa e ottima selezione di birre artigianali. Casual, divertente e molto amato dai locali. Perfetto per una serata rilassata in riva al lago.</p>
+        <div class="place-meta">
+          <span>📍 Via Aganoor Pompili, 53</span>
+          <span>📞 +39 075 827168</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Mar-Sab 12:30-14:30 e 19:30-23:30 · Dom dalle 19:00 · Chiuso Lun</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Non+Solo+Pizza+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.2</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Nonno Cencio</div>
+        <span class="place-tag tag-local">Pizza e cucina di lago</span>
+        <p class="place-desc">Un'istituzione locale amata da tutti - semplice, accogliente e genuinamente buono. L'impasto della pizza e' leggero e saporito, il pesce e' fresco di lago, e gli antipasti umbri (salumi, formaggi, torta al testo) sono eccellenti. Personale cordiale, ottimo rapporto qualita-prezzo, molto adatto alle famiglie.</p>
+        <div class="place-meta">
+          <span>📍 Via Perugina, 2</span>
+          <span>📞 +39 075 828095</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Aperto 6 giorni su 7 · Chiamate per confermare</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Nonno+Cencio+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.0</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Agri Hyla</div>
+        <span class="place-tag tag-local">Ristorante di fattoria · Km 0</span>
+        <p class="place-desc">Un'esperienza autentica tra i sapori della terra: piatti preparati con prodotti locali e di stagione, a km zero, direttamente dal campo alla tavola. Posto molto semplice e tranquillo con tavolini sul prato. Ottimo per un po' di tranquillita' ma anche per famiglie con bambini.</p>
+        <div class="place-meta">
+          <span>📍 Passignano sul Trasimeno</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Agri+Hyla+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.5</div>
+    </div>
+
+  </div>
+
+  <!-- SAN FELICIANO -->
+  <div style="margin: 32px 0 10px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;">📍 San Feliciano · ~15 min in auto</span>
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+    </div>
+  </div>
+
+  <div class="place-cards">
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Faliero - Torta de la Maria</div>
+        <span class="place-tag tag-local">Icona umbra</span>
+        <p class="place-desc">Un'istituzione leggendaria dal 1969 - quasi un pellegrinaggio per chi e' in Umbria. La torta al testo di Maria (pane cotto sulla pietra refrattaria e farcito con salsiccia e verdure, o prosciutto e pecorino) e' la vera protagonista. Ottimi anche: pesce di lago fritto, Chianina alla griglia, pasta fatta in casa. Tavoli comuni in legno, caotico nei momenti di punta, assolutamente imperdibile. Oggi gestito da Maria con i figli Luca e Cristiano.</p>
+        <div class="place-meta">
+          <span>📍 Loc. Montebuono di Magione, San Feliciano</span>
+          <span>📞 +39 075 847 6000</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Tutti i giorni 8:00 - 22:00 (no stop)</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Faliero+Torta+al+Testo+San+Feliciano+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.4</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Ristorante il Ristoro</div>
+        <span class="place-tag tag-fish">Pesce di lago e cucina locale</span>
+        <p class="place-desc">Un posto autentico e genuino nel piccolo borgo lacustre di San Feliciano. Cucina semplice e onesta a base di pesce fresco di lago e piatti della tradizione umbra. Ideale per un pranzo rilassato in riva all'acqua.</p>
+        <div class="place-meta">
+          <span>📍 San Feliciano sul Trasimeno</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Ristorante+il+Ristoro+San+Feliciano+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.3</div>
+    </div>
+
+  </div>
+
+  <!-- ISOLA MAGGIORE -->
+  <div style="margin: 32px 0 10px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;">⛵ Isola Maggiore · Traghetto dal porto</span>
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+    </div>
+  </div>
+
+  <div class="place-cards">
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Da Sauro</div>
+        <span class="place-tag tag-fish">Specialita' di lago</span>
+        <p class="place-desc">Prendete il traghetto per l'isola e venite direttamente qui. Da Sauro e' il ristorante di pesce di lago per eccellenza sul Trasimeno - tagliolini alla tinca affumicata, spiedini di persico, fritto misto di lago, Regina in porchetta. Non saltate il dolce: la zuppa inglese e' straordinaria. Terrazza sull'acqua, scenario magico. Un'esperienza completa - venite a pranzo e fate una giornata intera.</p>
+        <div class="place-meta">
+          <span>📍 Via Guglielmi, 1 - Isola Maggiore</span>
+          <span>📞 +39 075 826168</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Ristorante+Da+Sauro+Isola+Maggiore+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.4</div>
+    </div>
+
+  </div>
+
+  <!-- TUORO -->
+  <div style="margin: 32px 0 10px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;">📍 Tuoro sul Trasimeno · ~10 min in auto</span>
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+    </div>
+  </div>
+
+  <div class="place-cards">
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Lo Scoiattolo</div>
+        <span class="place-tag tag-local">Vista e cucina umbra</span>
+        <p class="place-desc">In cima a Tuoro con una delle viste panoramiche piu' mozzafiato sul Lago Trasimeno. Cucina umbra tradizionale - pasta, taglieri di salumi, carni alla griglia - in un'atmosfera rilassata. Venite a pranzo in una giornata di sole e godetevi il panorama.</p>
+        <div class="place-meta">
+          <span>📍 Tuoro sul Trasimeno (alla cima)</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Ristorante+Lo+Scoiattolo+Tuoro+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.2</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Osteria La Pergola</div>
+        <span class="place-tag tag-fish">Pesce di lago e cucina locale</span>
+        <p class="place-desc">Una storica osteria nel cuore di Tuoro, all'ombra di una magnifica glicine del 1860. Pesce fresco di lago, prodotti dell'orto proprio e un'atmosfera autentica difficile da trovare altrove. Intima e davvero incantevole. Uno dei nostri preferiti in zona.</p>
+        <div class="place-meta">
+          <span>📍 Centro storico, Tuoro sul Trasimeno</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Osteria+La+Pergola+Tuoro+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.4</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Osteria dell'Accademia</div>
+        <span class="place-tag tag-local">Cucina umbra</span>
+        <p class="place-desc">Un'osteria accogliente a Tuoro con una solida cucina umbra tradizionale. Buona pasta, carni locali e un'atmosfera da quartiere. Vale la sosta se siete gia' in paese.</p>
+        <div class="place-meta">
+          <span>📍 Tuoro sul Trasimeno</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Osteria+dell+Accademia+Tuoro+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.1</div>
+    </div>
+
+  </div>
+
+  <!-- MAGIONE -->
+  <div style="margin: 32px 0 10px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;">📍 Magione · ~15 min in auto</span>
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+    </div>
+  </div>
+
+  <div class="place-cards">
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">I Cento Passi - Officina di Pizza</div>
+        <span class="place-tag tag-pizza">🍕 Pizza gourmet</span>
+        <p class="place-desc">Una delle migliori pizzerie di tutta l'Umbria. L'impasto e' preparato con farine selezionate e lasciato lievitare 72 ore - leggerissimo e pieno di sapore. Ogni pizza e' intitolata a un film (con un debole per Nanni Moretti). Da non perdere i fuori menu e i fritti. Interni allegri a tema cinema, staff giovane e appassionato. Vale il breve viaggio.</p>
+        <div class="place-meta">
+          <span>📍 Piazzale Giacomo Matteotti, 21 - Magione</span>
+          <span>📞 +39 075 847 2039</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Tutti i giorni dalle 19:00</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=I+Cento+Passi+Officina+di+Pizza+Magione" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.4</div>
+    </div>
+
+  </div>
+
+  <!-- CITTA DELLA PIEVE -->
+  <div style="margin: 32px 0 10px;">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;">📍 Citta' della Pieve · ~25 min in auto</span>
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+    </div>
+  </div>
+
+  <div class="place-cards">
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Coppetta</div>
+        <span class="place-tag tag-local">Super consigliato · Tipico locale</span>
+        <p class="place-desc">Altamente consigliato - e' l'autenticita' umbra allo stato puro. Una vera trattoria in uno dei borghi piu' belli della regione. Ordinate i pici cacio e pepe: pasta fresca tirata a mano con pecorino e pepe nero, fatta alla perfezione. Semplice, generoso e profondamente soddisfacente. Il tipo di posto di cui parlerete quando tornate a casa.</p>
+        <div class="place-meta">
+          <span>📍 Citta' della Pieve</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Coppetta+Citta+della+Pieve" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.5</div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CAFFE E BAR -->
+<section class="section" id="caffe">
+  <div class="section-header">
+    <div class="section-icon icon-terracotta">☕</div>
+    <h2 class="section-title">Caffe &amp; Bar</h2>
+  </div>
+
+  <div class="place-cards">
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Caffe della Sosta</div>
+        <span class="place-tag tag-pastry">Paradiso di pasticceria</span>
+        <p class="place-desc">Il nostro consiglio numero uno per la pasticceria e la colazione. I mini cannoli, i cornetti freschi farciti al momento e le torte fatte in casa sono tra i migliori che troverete in Umbria. Andate presto per avere la scelta migliore. I locali fanno la fila fuori prima delle 8 - questo la dice lunga.</p>
+        <div class="place-meta">
+          <span>📍 Via Perugina, 12</span>
+          <span>📞 +39 075 829536</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Tutti i giorni 5:00 - 20:00</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Caffe+della+Sosta+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.7</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Bar del Sole</div>
+        <span class="place-tag tag-bar">Aperitivo e cocktail</span>
+        <p class="place-desc">Direttamente sul lungolago - un bar-bistrot cool e rilassato con vista sul lago, gelato artigianale, ottimi aperitivi e cocktail. Perfetto per uno Spritz nel tardo pomeriggio guardando la luce che cambia sull'acqua. Un posto ideale per iniziare o finire la serata.</p>
+        <div class="place-meta">
+          <span>📍 Via Aganoor Pompili, Passignano</span>
+          <span>📞 +39 340 504 5309</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Bar+del+Sole+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.5</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Pasticceria Canalicchio di Dogana</div>
+        <span class="place-tag tag-pastry">Forno e caffe'</span>
+        <p class="place-desc">Un meraviglioso forno artigianale appena fuori dal paese - cornetti profumati, pasticcini freschi e una bella terrazza per il caffe' del mattino. Una delle colazioni piu' amate della zona. Vale una piccola deviazione.</p>
+        <div class="place-meta">
+          <span>📍 Dogana, Passignano sul Trasimeno</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Pasticceria+Canalicchio+di+Dogana+Passignano" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.6</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Marylebone Bar &amp; Coffee</div>
+        <span class="place-tag tag-bar">Aperitivo</span>
+        <p class="place-desc">Un posto carino nel centro storico. Ottimi caffe' freddi, eccellente Aperol Spritz e focaccia sfiziosa per un pranzo leggero. Si parla inglese - lo staff giovane e' davvero gentile e disponibile.</p>
+        <div class="place-meta">
+          <span>📍 Via Nazionale (centro storico)</span>
+          <span>📞 +39 327 751 2792</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Tutti i giorni 6:30 - 22:30</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Marylebone+Bar+Coffee+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.2</div>
+    </div>
+
+  </div>
+
+  <!-- MADREVITE -->
+  <div style="background: var(--sage-dark); border-radius: 12px; padding: 24px 28px; margin-top: 28px; display: flex; gap: 16px; align-items: flex-start;">
+    <div style="font-size: 28px; flex-shrink: 0; margin-top: 2px;">🍷</div>
+    <div>
+      <p style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 6px;">Esperienza speciale · ~20 min in auto · Castiglione del Lago</p>
+      <p style="font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: white; margin-bottom: 8px; line-height: 1.2;">Madrevite - Aperitivo al tramonto</p>
+      <p style="font-size: 13.5px; color: rgba(255,255,255,0.8); line-height: 1.7; margin-bottom: 10px;">Madrevite e' un'azienda vinicola familiare immersa nelle colline tra il Trasimeno e il Lago di Chiusi, vicino a Castiglione del Lago. Nei weekend estivi organizzano aperitivi al tramonto all'aperto tra i vigneti - i loro vini (da non perdere il Gamay del Trasimeno), stuzzichini locali e una vista che lascia senza fiato. Prenotate in anticipo - i posti finiscono subito.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+        <span style="font-size: 12px; color: rgba(255,255,255,0.6);">📍 Via Cimbano 36, Castiglione del Lago</span>
+        <a class="map-link" href="https://maps.google.com/?q=Madrevite+Castiglione+del+Lago" target="_blank" style="border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8);">→ Apri in Maps</a>
+        <a class="map-link" href="https://www.madrevite.com" target="_blank" style="border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.8);">→ madrevite.com</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- SPESA -->
+<section class="section" id="spesa">
+  <div class="section-header">
+    <div class="section-icon icon-green">🛒</div>
+    <h2 class="section-title">Spesa e Approvvigionamenti</h2>
+  </div>
+
+  <div class="place-cards">
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Azienda Agricola Moretti</div>
+        <span class="place-tag tag-meat">Macelleria · Km 0</span>
+        <p class="place-desc">Il nostro consiglio numero uno per carne e salumi di qualita'. La famiglia Moretti alleva i propri animali sulla collina qui sopra - quello che acquistate viene direttamente dalla loro fattoria. Salumi straordinari, tagli freschi e vera produzione a km 0. Questa e' la cosa autentica: onesta, locale e di qualita' eccezionale. Caldamente consigliata.</p>
+        <div class="place-meta">
+          <span>📍 Passignano sul Trasimeno</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Azienda+Agricola+Moretti+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 5.0</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Le Delizie di Norcia</div>
+        <span class="place-tag tag-deli">Gastronomia e salumi</span>
+        <p class="place-desc">Una deliziosa gastronomia in piazza. I migliori salumi norcini, formaggi umbri locali, tartufi e birre artigianali. Il titolare e' un signore gentilissimo che vi guidera' in ogni scelta. Perfetto per un picnic o un aperitivo a casa.</p>
+        <div class="place-meta">
+          <span>📍 Piazza Aldo Moro, 3/4</span>
+          <span>📞 +39 347 647 5135</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Tutti i giorni 9:00 - 22:00</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Le+Delizie+di+Norcia+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.2</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Il Coccio d'Oro</div>
+        <span class="place-tag tag-deli">Ceramiche e prodotti tipici</span>
+        <p class="place-desc">Un bel negozio per ceramiche umbre, prodotti artigianali e specialita' locali - il posto ideale per trovare un pezzo bellissimo da portare a casa. Ceramica in stile Deruta fatta a mano, olio d'oliva, vino e prodotti regionali. Vale una visita.</p>
+        <div class="place-meta">
+          <span>📍 Passignano sul Trasimeno</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Il+Coccio+d%27Oro+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.4</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Supermercato Gala</div>
+        <span class="place-tag tag-super">Il miglior supermercato della zona</span>
+        <p class="place-desc">Si, e' a Tuoro - ma vale i 10 minuti di macchina. E' semplicemente il supermercato meglio fornito intorno al lago, con molta piu' scelta rispetto a qualsiasi altro a Passignano. Frutta e verdura fresca, ottima selezione di vini locali, formaggi, carni e tutto il necessario per una vera cucina italiana. Il nostro riferimento per la spesa seria.</p>
+        <div class="place-meta">
+          <span>📍 Tuoro sul Trasimeno</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Supermercato+Gala+Tuoro+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.3</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Conad</div>
+        <span class="place-tag tag-super">Supermercato</span>
+        <p class="place-desc">Il principale supermercato locale di Passignano - ben fornito di beni di prima necessita', prodotti freschi e banco macelleria. Personale cordiale e buon parcheggio. La domenica chiude prima, tenetene conto.</p>
+        <div class="place-meta">
+          <span>📍 Via di Valle Romana, 1</span>
+          <span>📞 +39 075 829 6139</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Lun-Sab 8:30 - 19:30 · Dom 9:00 - 13:00</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Conad+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.1</div>
+    </div>
+
+    <div class="place-card">
+      <div>
+        <div class="place-name">Eurospin</div>
+        <span class="place-tag tag-super">Discount</span>
+        <p class="place-desc">Un grande discount ben organizzato appena fuori dal paese. Ottimo rapporto qualita-prezzo per i prodotti di base, ampio parcheggio. Aperto fino alle 20:00 tutti i giorni - molto comodo per una spesa serale dopo una giornata in giro.</p>
+        <div class="place-meta">
+          <span>📍 Via di Valle Romana, 16/D</span>
+        </div>
+        <div class="place-meta" style="margin-top:4px;">
+          <span>🕐 Tutti i giorni 8:00 - 20:00</span>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Eurospin+Passignano+sul+Trasimeno" target="_blank">→ Apri in Maps</a>
+      </div>
+      <div class="place-stars">⭐ 4.2</div>
+    </div>
+
+  </div>
+
+  <div style="background: var(--earth-light); border-radius: 10px; padding: 18px 22px; margin-top: 24px;">
+    <p style="font-size: 13.5px; color: var(--earth); line-height: 1.7;"><strong>🛍️ Consiglio:</strong> Se andate a Castiglione del Lago, il paese e' pieno di negozietti meravigliosi con prodotti locali - olio d'oliva, vino, tartufi, ceramiche e ogni tipo di specialita' umbra. Ottimo per souvenir e regali.</p>
+  </div>
+
+</section>
+
+<!-- SCOPRI -->
+<section class="section" id="scopri">
+  <div class="section-header">
+    <div class="section-icon icon-green">🌿</div>
+    <h2 class="section-title">Scopri la zona</h2>
+  </div>
+  <p style="color: var(--ink-mid); margin-bottom: 28px; font-size: 14px;">Siete nel cuore dell'Umbria, con la Toscana a soli venti minuti. C'e' tantissimo da scoprire - ecco da dove inizieremmo noi.</p>
+
+  <div class="attraction-grid">
+
+    <div class="attraction-card">
+      <div class="attraction-number">01</div>
+      <div class="attraction-name">La Rocca di Passignano</div>
+      <p class="attraction-desc">La fortezza medievale sopra il paese offre una vista panoramica mozzafiato sul lago. Salite attraverso le stradine in pietra - il percorso e' gia' meta' del piacere.</p>
+      <span class="attraction-dist">5 min a piedi</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">02</div>
+      <div class="attraction-name">Lago Trasimeno in bici</div>
+      <p class="attraction-desc">Il lago ha una bellissima pista ciclabile lungo le rive. Noleggiate una bici in paese e seguite l'acqua al vostro ritmo - la luce del tardo pomeriggio e' magica.</p>
+      <span class="attraction-dist">Parte dal porto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">03</div>
+      <div class="attraction-name">Traghetto per l'Isola Maggiore</div>
+      <p class="attraction-desc">Un breve traghetto dal porto di Passignano vi porta alla piu' grande isola abitata del lago. Visitate il castello Guglielmi, i laboratori di merletto e pranzate sull'acqua da Sauro.</p>
+      <span class="attraction-dist">Traghetto dal porto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">04</div>
+      <div class="attraction-name">Monte del Lago e Castel Rigone</div>
+      <p class="attraction-desc">Due incantevoli borghi collinari sulla sponda nord del lago. Monte del Lago e' piccolo e perfettamente conservato. Castel Rigone si arrampica in alto con viste spettacolari - salite nel tardo pomeriggio.</p>
+      <span class="attraction-dist">~15-20 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">05</div>
+      <div class="attraction-name">Castiglione del Lago</div>
+      <p class="attraction-desc">Il paese piu' bello del lago - un promontorio che si protende sull'acqua con una magnifica fortezza e splendide viste. Ottimo per una passeggiata mattutina, i negozietti locali e un aperitivo al tramonto.</p>
+      <span class="attraction-dist">~20 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">06</div>
+      <div class="attraction-name">Campo del Sole, Tuoro</div>
+      <p class="attraction-desc">Un parco di sculture all'aperto sul lago a Tuoro - una gemma nascosta. 27 colonne di artisti disposte a spirale sulla riva. Pacifico e assolutamente unico.</p>
+      <span class="attraction-dist">~10 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">07</div>
+      <div class="attraction-name">Citta' della Pieve</div>
+      <p class="attraction-desc">Un bellissimo borgo in mattone di terracotta - citta' natale del Perugino. Strade medievali splendide e viste meravigliose sulla Val di Chiana. Non perdetevi il pranzo da Coppetta.</p>
+      <span class="attraction-dist">~25 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">08</div>
+      <div class="attraction-name">Perugia</div>
+      <p class="attraction-desc">La magnifica capitale umbra - il Palazzo dei Priori, la Galleria Nazionale dell'Umbria. Due tappe culinarie imperdibili: <strong>L'Antica Latteria</strong> per il leggendario maritozzo alla panna, e la <strong>Gelateria Perusia</strong> per un gelato artigianale straordinario. Una giornata intera ben spesa.</p>
+      <span class="attraction-dist">~30 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">09</div>
+      <div class="attraction-name">Rasiglia</div>
+      <p class="attraction-desc">Un borgo magico costruito intorno a sorgenti naturali e corsi d'acqua che scorrono tra le strade. Case medievali in pietra, ruote ad acqua e ruscelli cristallini - uno dei segreti meglio custoditi dell'Umbria. Andate in settimana per godervi la tranquillita'.</p>
+      <span class="attraction-dist">~45 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">10</div>
+      <div class="attraction-name">Spello</div>
+      <p class="attraction-desc">Uno dei borghi piu' fioriti d'Italia - case in pietra adornate di gerani, bellissimi affreschi del Pinturicchio in Santa Maria Maggiore. Molto vicino ad Assisi.</p>
+      <span class="attraction-dist">~40 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">11</div>
+      <div class="attraction-name">Assisi</div>
+      <p class="attraction-desc">La citta' natale di San Francesco e uno dei borghi piu' belli d'Italia. La Basilica di San Francesco con gli affreschi di Giotto e' imperdibile.</p>
+      <span class="attraction-dist">~45 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">12</div>
+      <div class="attraction-name">Gubbio</div>
+      <p class="attraction-desc">Uno dei borghi medievali meglio conservati d'Italia - drammatico, austero e di straordinaria bellezza. Il Palazzo dei Consoli domina la valle. Prendete la funivia all'aperto per viste incredibili.</p>
+      <span class="attraction-dist">~1 ora in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">13</div>
+      <div class="attraction-name">Civita di Bagnoregio</div>
+      <p class="attraction-desc">La "Citta' che muore" - un borgo medievale arroccato su una roccia di tufo friabile, raggiungibile solo attraverso un lungo ponte pedonale. Straordinaria e unica in Italia. Andate di mattina presto per evitare la folla.</p>
+      <span class="attraction-dist">~1 ora e 15 min in auto</span>
+    </div>
+
+  </div>
+
+  <!-- TOSCANA -->
+  <div style="margin: 32px 0 20px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+      <span style="font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap;">🌻 In Toscana</span>
+      <div style="flex: 1; height: 1px; background: var(--border);"></div>
+    </div>
+    <p style="font-size: 13px; color: var(--ink-soft); margin-top: 10px;">Il confine toscano e' a soli 20 minuti - questi sono tra i posti piu' belli di tutta Italia.</p>
+  </div>
+
+  <div class="attraction-grid">
+
+    <div class="attraction-card">
+      <div class="attraction-number">14</div>
+      <div class="attraction-name">Cortona</div>
+      <p class="attraction-desc">Un antico borgo etrusco con viste spettacolari sulla Val di Chiana. Uno dei posti piu' suggestivi della Toscana - ottimo per una passeggiata mattutina, ottimo cibo e un lungo pranzo.</p>
+      <span class="attraction-dist">~25 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">15</div>
+      <div class="attraction-name">Montepulciano</div>
+      <p class="attraction-desc">Uno dei borghi piu' belli della Toscana - architettura rinascimentale straordinaria, vino eccezionale (il Vino Nobile di Montepulciano) e una via principale che sale drammaticamente fino in cima. Una mattinata meravigliosa.</p>
+      <span class="attraction-dist">~45 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">16</div>
+      <div class="attraction-name">Pienza</div>
+      <p class="attraction-desc">La "citta' ideale del Rinascimento" - un borgo piccolo e perfetto costruito da Papa Pio II. Patrimonio UNESCO, di una bellezza mozzafiato, famosa per il Pecorino di Pienza. Percorrete i bastioni per le viste sulla Val d'Orcia.</p>
+      <span class="attraction-dist">~50 min in auto</span>
+    </div>
+
+    <div class="attraction-card">
+      <div class="attraction-number">17</div>
+      <div class="attraction-name">Bagno Vignoni</div>
+      <p class="attraction-desc">Uno dei borghi piu' unici d'Italia - la piazza centrale e' una vasca termale rinascimentale. Antico, suggestivo e totalmente diverso da qualsiasi altro posto. Una deviazione perfetta sulla strada verso o da Pienza.</p>
+      <span class="attraction-dist">~55 min in auto</span>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p><strong>Casale Toppello</strong> &nbsp;·&nbsp; Passignano sul Trasimeno, Perugia</p>
+  <p style="margin-top: 8px;">Per qualsiasi necessita': <strong>+39 339 185 4303</strong></p>
+  <p style="margin-top: 16px; font-size: 11px; opacity: 0.5;">Speriamo che vi innamoriate di questo angolo d'Umbria tanto quanto noi.</p>
+</footer>
+
+</body>
+</html>
